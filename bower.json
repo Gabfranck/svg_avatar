@@ -1,6 +1,7 @@
 {
   "name": "svg_avatar",
   "description": "Avatar module",
+  "version": "1.1.2",
   "main": "index.js",
   "authors": [
     "Gabriel Franck"
