@@ -32,7 +32,9 @@ function random(){
 	avatar_rand.mouth = Math.floor(Math.random()*avatar_lib.mouths.length) 
 	avatar_rand.color1 = Math.floor(Math.random()*avatar_lib.colors.length)
 	avatar_rand.color2 = Math.floor(Math.random()*avatar_lib.colors.length)
-
+	while(avatar_rand.color1 == avatar_rand.color2) {
+		avatar_rand.color2 = Math.floor(Math.random()*avatar_lib.colors.length);
+	};
 	return avatar_rand
 }
 

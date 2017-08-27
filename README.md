@@ -85,7 +85,7 @@ svgAvatar.lib_json() //-> JSON object (content of avatar_lib.json by default)
 
 #### stringify_avatar()
 
-Return the value of an avatar converted to string, could be useful to stored into a database
+Return the value of an avatar converted to string, could be useful to store avatars into a database
 
 ##### Syntax
 
