@@ -2,11 +2,7 @@ var should = require('chai').should(),
     svg_avatar = require('../index');
 
 describe('#test', function() {
-
-  it('it works', function() {
-    svg_avatar.test().should.equal('hello world')
-  })
-
+	
   it('lib loaded', function() {
   	svg_avatar.lib_json().should.have.all.keys('forms', 'eyes','mouths','colors')
   })
