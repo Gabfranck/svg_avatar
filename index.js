@@ -128,6 +128,14 @@ function previousPart(avatar,part){
 	return avatar
 }
 
+function parse_avatar(avatar){
+	if( typeof avatar == 'string'){
+    	avatar_parsed = JSON.parse(avatar)
+    }else{
+    	avatar_parsed = avatar
+    }
+    return avatar_parsed
+}
 
 module.exports = {
 
@@ -140,7 +148,8 @@ module.exports = {
     },
 
     render_svg: function(avatar){
-    	return generate_avatar(avatar)
+    	avatar_parsed = parse_avatar(avatar)
+    	return generate_avatar(avatar_parsed)
     },
 
     random_avatar: function() {
@@ -152,17 +161,21 @@ module.exports = {
     },
 
     next_part_avatar: function(avatar,part) {
-        return nextPart(avatar,part)
+    	avatar_parsed = parse_avatar(avatar)
+        return nextPart(avatar_parsed,part)
     },
     next_part_svg: function(avatar,part) {
-        return generate_avatar(nextPart(avatar,part))
+    	avatar_parsed = parse_avatar(avatar)
+        return generate_avatar(nextPart(avatar_parsed,part))
     },
 
     previous_part_avatar: function(avatar,part) {
-        return previousPart(avatar,part)
+    	avatar_parsed = parse_avatar(avatar)
+        return previousPart(avatar_parsed,part)
     },
     previous_part_svg: function(avatar,part) {
-        return generate_avatar(previousPart(avatar,part))
+    	avatar_parsed = parse_avatar(avatar)
+        return generate_avatar(previousPart(avatar_parsed,part))
     }
 
 }
