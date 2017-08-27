@@ -4,7 +4,7 @@ by Gabriel Franck
 
 SvgAvatar is a javascript module assembling different svg object to create an avatar. This will allow us to not store svg files or images of avatars but just the index of each part. 
 
-SvgAvatar wil be designed to support custom librairies of avatars, a tutorial will be coming soon.
+SvgAvatar will be designed to support custom librairies of avatars, a tutorial will be coming soon.
 
 
 ## Installation 
@@ -14,7 +14,24 @@ Install it via npm :
 npm install svg_avatar
 ```
 
-and you just nedd to include it to your javascript project :
+Or via bower :
+```
+bower instal svg_avatar
+```
+
+If are in a NodeJS environement you just need to include it to your javascript project :
+```javascript
+svgAvatar = require('svg_avatar')
+```
+
+If you're not, include the bundle.js before the files where you're going to use SvgAvatar :
+```html
+<script src="bower_components/svg_avatar/bundle.js"></script>
+or
+<script src="node_modules/svg_avatar/bundle.js"></script>
+```
+
+and then you can :
 ```javascript
 svgAvatar = require('svg_avatar')
 ```
@@ -29,7 +46,7 @@ svgAvatar = require('svg_avatar')
 
 ### Definition
 
-#### avatar :
+#### avatar example :
 ```json
 {
 	'form': 0,
@@ -42,7 +59,7 @@ svgAvatar = require('svg_avatar')
 '{"form":0,"mouth":0,"eye":0,"color1":0,"color2":0}'
 ```
 
-#### avatar_svg : 
+#### avatar_svg example :
 ```html
 <rect x='15' y='15' fill='#3941c3' stroke='#3941c3' stroke-width='0' stroke-miterlimit='10' width='220' height='220'/>
 <polygon fill='#3941c3' stroke='#000000' stroke-width='0' stroke-miterlimit='10' points='111.5,113.08 48.84,92.974 97.583,48.761 '/>
@@ -159,8 +176,16 @@ svgAvatar.previous_part_svg(avatar, part) //-> SVG String (avatar_svg)
 
 ## Tests
 
-to run test you simply need to run this following command : 
-
+To run test you simply need to run this following command : 
 ```
 npm test
+```
+
+To update the bundle.js you need to install [Browserify](http://browserify.org/) :
+```
+npm install -g browserify
+```
+And then run :
+```
+browserify -r ./index.js:svg_avatar > bundle.js  
 ```
