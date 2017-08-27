@@ -7,7 +7,7 @@
     "test": "make test"
   },
   "author": "Gabriel Franck",
-  "license": "UNLICENSED",
+  "license": "MIT",
   "devDependencies": {
     "chai": "^4.1.1",
     "mocha": "^3.5.0"

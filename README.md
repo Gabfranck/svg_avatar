@@ -1,4 +1,8 @@
-#Svg avatar
+#SvgAvatar
+by Gabriel Franck
+
+
+---
 
 ## Installation 
 
@@ -6,6 +10,6 @@
 npm install svg_avatar
 ```
 
-##Usage
 
+##Usage
 Coming soon
