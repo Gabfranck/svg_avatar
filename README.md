@@ -16,10 +16,10 @@ npm install svg_avatar
 
 Or via bower :
 ```
-bower instal svg_avatar
+bower install svg_avatar
 ```
 
-If are in a NodeJS environement you just need to include it to your javascript project :
+If you are in a NodeJS environement, you just need to include svgAvatar to your javascript project :
 ```javascript
 svgAvatar = require('svg_avatar')
 ```
@@ -99,7 +99,7 @@ svgAvatar.stringify_avatar(avatar_json) //-> String (avatar)
 
 ---
 
-#### render_svg(avatar)
+#### render_svg()
 
 Return an avatar svg value in string
 
