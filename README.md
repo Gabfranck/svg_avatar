@@ -22,7 +22,7 @@ svgAvatar = require('svg_avatar')
 
 ## Demo
 
-Here is a link to the live demo
+[Here](http://run.plnkr.co/jJggor6xNwhOrbAW/) is a link to the live demo
 
 
 ## Usage
