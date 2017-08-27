@@ -10,12 +10,12 @@ SvgAvatar will be designed to support custom librairies of avatars, a tutorial w
 ## Installation 
 
 Install it via npm :
-```
+```bash
 npm install svg_avatar
 ```
 
 Or via bower :
-```
+```bash
 bower install svg_avatar
 ```
 
@@ -177,15 +177,15 @@ svgAvatar.previous_part_svg(avatar, part) //-> SVG String (avatar_svg)
 ## Tests
 
 To run test you simply need to run this following command :
-```
+```bash
 npm test
 ```
 
 To update the bundle.js you need to install [Browserify](http://browserify.org/) :
-```
+```bash
 npm install -g browserify
 ```
 And then run :
-```
+```bash
 browserify -r ./index.js:svg_avatar > bundle.js
 ```
