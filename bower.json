@@ -1,0 +1,15 @@
+{
+  "name": "svg_avatar",
+  "description": "Avatar module",
+  "main": "index.js",
+  "authors": [
+    "Gabriel Franck"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/Gabfranck/svg_avatar",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components"
+  ]
+}

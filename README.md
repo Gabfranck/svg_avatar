@@ -73,7 +73,7 @@ Return the value of an avatar converted to string, could be useful to stored int
 ##### Syntax
 
 ```javascript
-svgAvatar.stringify_avatar(avatar_json) //-> String 
+svgAvatar.stringify_avatar(avatar_json) //-> String (avatar)
 ```
 
 |Parameters| value | description|
@@ -89,7 +89,7 @@ Return an avatar svg value in string
 ##### Syntax
 
 ```javascript
-svgAvatar.render_svg(avatar) //-> SVG String
+svgAvatar.render_svg(avatar) //-> SVG String (avatar_svg)
 ```
 
 |Parameters| value | description|
@@ -105,7 +105,7 @@ Generate a random avatar object
 ##### Syntax
 
 ```javascript
-svgAvatar.random_avatar() //-> avatar Object
+svgAvatar.random_avatar() //-> Object (avatar)
 ```
 
 ---
@@ -117,7 +117,7 @@ Generate a random avatar in svg
 ##### Syntax
 
 ```javascript
-svgAvatar.render_random_svg() //-> SVG String
+svgAvatar.render_random_svg() //-> SVG String (avatar_svg)
 ```
 
 ---
@@ -129,8 +129,8 @@ Return an avatar object with a part changed (it loops when max value is reached)
 ##### Syntax
 
 ```javascript
-svgAvatar.next_part_avatar(avatar, part) //-> avatar Object
-svgAvatar.previous_part_avatar(avatar, part) //-> avatar Object
+svgAvatar.next_part_avatar(avatar, part) //-> Object (avatar)
+svgAvatar.previous_part_avatar(avatar, part) //-> Object (avatar)
 ```
 
 |Parameters| value | description|
@@ -147,8 +147,8 @@ Return an avatar in svg with a part changed (it loops when max value is reached)
 ##### Syntax
 
 ```javascript
-svgAvatar.next_part_svg(avatar, part) //-> SVG String
-svgAvatar.previous_part_svg(avatar, part) //-> SVG String
+svgAvatar.next_part_svg(avatar, part) //-> SVG String (avatar_svg)
+svgAvatar.previous_part_svg(avatar, part) //-> SVG String (avatar_svg)
 ```
 
 |Parameters| value | description|
