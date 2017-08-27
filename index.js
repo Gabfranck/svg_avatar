@@ -137,6 +137,11 @@ function parse_avatar(avatar){
     return avatar_parsed
 }
 
+function avatar_to_string(avatar){
+    avatar_parsed = JSON.stringify(avatar)
+    return avatar_parsed
+}
+
 module.exports = {
 
     test: function() {
@@ -145,6 +150,10 @@ module.exports = {
 
     lib_json: function() {
         return avatar_lib
+    },
+
+    stringify_avatar: function(avatar){
+    	return avatar_to_string(avatar)
     },
 
     render_svg: function(avatar){
