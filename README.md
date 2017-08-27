@@ -39,7 +39,7 @@ svgAvatar = require('svg_avatar')
 
 ## Demo
 
-[Here](http://run.plnkr.co/preview/cj6v4cmiw0005265np0p6nd8s/) is a link to the live demo
+[Here](http://embed.plnkr.co/lS0mFYevQgzXaiVnhiSJ/) is a link to the live demo
 
 
 ## Usage
@@ -176,7 +176,7 @@ svgAvatar.previous_part_svg(avatar, part) //-> SVG String (avatar_svg)
 
 ## Tests
 
-To run test you simply need to run this following command : 
+To run test you simply need to run this following command :
 ```
 npm test
 ```
@@ -187,5 +187,5 @@ npm install -g browserify
 ```
 And then run :
 ```
-browserify -r ./index.js:svg_avatar > bundle.js  
+browserify -r ./index.js:svg_avatar > bundle.js
 ```
