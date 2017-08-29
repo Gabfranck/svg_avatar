@@ -35,8 +35,6 @@ function load_lib(lib){
 		return require('./avatar_lib.json')	
 	}
 }
-
-
 var avatar_lib = load_lib()
 
 function generate_avatar(avatar) {
@@ -174,6 +172,14 @@ function avatar_to_string(avatar){
     return avatar_parsed
 }
 
+function is_unvalid_avatar(avatar){
+    if(avatar.form == undefined || avatar.eye == undefined ||avatar.mouth == undefined || avatar.color1 == undefined || avatar.color2 == undefined) return true
+}
+
+function is_unvalid_part(part){
+	if(part != 'forms' && part != 'eyes' && part != 'mouths' && part != 'color1' && part != 'color2' ) return true
+}
+
 module.exports = {
 
     lib_json: function() {
@@ -181,11 +187,17 @@ module.exports = {
     },
 
     stringify_avatar: function(avatar_json){
+
+    	if(is_unvalid_avatar(avatar_json)) return {'error': true, 'msg':'unvalid avatar'}
+
     	return avatar_to_string(avatar_json)
     },
 
     render_svg: function(avatar){
     	avatar_parsed = parse_avatar(avatar)
+
+    	if(is_unvalid_avatar(avatar_parsed)) return {'error': true, 'msg':'unvalid avatar'}
+
     	return generate_avatar(avatar_parsed)
     },
 
@@ -199,19 +211,35 @@ module.exports = {
 
     next_part_avatar: function(avatar,part) {
     	avatar_parsed = parse_avatar(avatar)
+
+    	if(is_unvalid_avatar(avatar_parsed)) return {'error': true, 'msg':'unvalid avatar'}
+    	if(is_unvalid_part(part)) return {'error': true, 'msg':'unvalid part'}
+        
         return nextPart(avatar_parsed,part)
     },
     next_part_svg: function(avatar,part) {
     	avatar_parsed = parse_avatar(avatar)
+    	
+    	if(is_unvalid_avatar(avatar_parsed)) return {'error': true, 'msg':'unvalid avatar'}
+    	if(is_unvalid_part(part)) return {'error': true, 'msg':'unvalid part'}
+
         return generate_avatar(nextPart(avatar_parsed,part))
     },
 
     previous_part_avatar: function(avatar,part) {
     	avatar_parsed = parse_avatar(avatar)
+    	
+    	if(is_unvalid_avatar(avatar_parsed)) return {'error': true, 'msg':'unvalid avatar'}
+    	if(is_unvalid_part(part)) return {'error': true, 'msg':'unvalid part'}
+
         return previousPart(avatar_parsed,part)
     },
     previous_part_svg: function(avatar,part) {
     	avatar_parsed = parse_avatar(avatar)
+    	
+    	if(is_unvalid_avatar(avatar_parsed)) return {'error': true, 'msg':'unvalid avatar'}
+    	if(is_unvalid_part(part)) return {'error': true, 'msg':'unvalid part'}
+
         return generate_avatar(previousPart(avatar_parsed,part))
     }
 

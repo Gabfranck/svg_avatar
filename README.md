@@ -5,6 +5,16 @@ by Gabriel Franck
 SvgAvatar is a javascript module assembling different svg object to create an avatar. This will allow us to not store svg files or images of avatars but just the index of each part. 
 
 SvgAvatar will be designed to support custom librairies of avatars, a tutorial will be coming soon.
+If you want to using it with AngularJs please consider [svg_avatar_angularjs](https://github.com/Gabfranck/svg_avatar_angularjs) 
+
+Link to [npm](https://www.npmjs.com/package/svg_avatar)
+
+Link to [gitHub](https://github.com/Gabfranck/svg_avatar)
+
+
+## Demo
+
+[Here](http://embed.plnkr.co/lS0mFYevQgzXaiVnhiSJ/) is a link to the live demo
 
 
 ## Installation 
@@ -35,11 +45,6 @@ and then you can :
 ```javascript
 svgAvatar = require('svg_avatar')
 ```
-
-
-## Demo
-
-[Here](http://embed.plnkr.co/lS0mFYevQgzXaiVnhiSJ/) is a link to the live demo
 
 
 ## Usage
@@ -180,6 +185,9 @@ To run test you simply need to run this following command :
 ```bash
 npm test
 ```
+
+## Build / Contribute
+
 
 To update the bundle.js you need to install [Browserify](http://browserify.org/) :
 ```bash

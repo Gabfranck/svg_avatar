@@ -5,8 +5,6 @@ function load_lib(lib){
 		return require('./avatar_lib.json')	
 	}
 }
-
-
 var avatar_lib = load_lib()
 
 function generate_avatar(avatar) {
@@ -169,7 +167,7 @@ module.exports = {
     	avatar_parsed = parse_avatar(avatar)
 
     	if(is_unvalid_avatar(avatar_parsed)) return {'error': true, 'msg':'unvalid avatar'}
-    		
+
     	return generate_avatar(avatar_parsed)
     },
 
