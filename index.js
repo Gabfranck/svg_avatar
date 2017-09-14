@@ -2,130 +2,90 @@ function load_lib(lib){
 	if(lib){
 		return require(lib)
 	}else{
-		return require('./avatar_lib.json')	
+		return require('./avatar_lib.json')
 	}
 }
 var avatar_lib = load_lib()
 
 function generate_avatar(avatar) {
-	f = avatar.form
-  	m = avatar.mouth
-  	e = avatar.eye
-  	c1 = avatar.color1
-  	c2 = avatar.color2
-   
-  	var svg = avatar_lib.forms[f]+avatar_lib.eyes[e]+avatar_lib.mouths[m]
-	
-  	svgColor1 = svg.replace(/{{color1}}/g,avatar_lib.colors[c1])
-  	svgFinal = svgColor1.replace(/{{color2}}/g,avatar_lib.colors[c2])
-  	
-    return svgFinal
+    var svg = ""
+    for (var part in avatar) {
+      svg += avatar_lib[part].pattern[avatar[part].pattern]
+      svg = svg.replace(/{{color}}/g,avatar_lib[part].colors[avatar[part].colors])
+    }
+    return svg
 }
 
 function random(){
-
-	var avatar_rand = {};
-	avatar_rand.form = Math.floor(Math.random()*avatar_lib.forms.length)
-	avatar_rand.eye = Math.floor(Math.random()*avatar_lib.eyes.length)
-	avatar_rand.mouth = Math.floor(Math.random()*avatar_lib.mouths.length) 
-	avatar_rand.color1 = Math.floor(Math.random()*avatar_lib.colors.length)
-	avatar_rand.color2 = Math.floor(Math.random()*avatar_lib.colors.length)
-	while(avatar_rand.color1 == avatar_rand.color2) {
-		avatar_rand.color2 = Math.floor(Math.random()*avatar_lib.colors.length);
-	};
+	var avatar_rand = {}
+  for (var part in avatar_lib) {
+    avatar_rand[part] = {}
+    avatar_rand[part].pattern = Math.floor(Math.random()*avatar_lib[part].pattern.length)
+    avatar_rand[part].colors = Math.floor(Math.random()*avatar_lib[part].colors.length)
+  }
 	return avatar_rand
 }
 
 
-function nextPart(avatar,part){
-	switch(part) {
-	case 'forms':
-		if(avatar.form + 1 < avatar_lib.forms.length){
-			avatar.form += 1
-		}else{
-			avatar.form = 0
-		}
-		break	
+function change_avatar(avatar, part, change, direction) {
+  if (direction == 'next') {
+    if (change == 'color') {
 
-    case 'eyes':
-		if(avatar.eye + 1 < avatar_lib.eyes.length){
-			avatar.eye += 1
-		}else{
-			avatar.eye = 0
-		}
-        break
+      for (var p in avatar_lib) {
+        if (p == part){
+          if(avatar[p].colors + 1 < avatar_lib[p].colors.length){
+        			avatar[p].colors += 1
+        		}else{
+        			avatar[p].colors = 0
+        		}
+        }
+      }
+      return avatar
 
-    case 'mouths':
-		if(avatar.mouth + 1 < avatar_lib.mouths.length){
-			avatar.mouth += 1
-		}else{
-			avatar.mouth = 0
-		}
-        break
+    }else if (change == 'pattern'){
 
-    case 'color1':
-		if(avatar.color1 + 1 < avatar_lib.colors.length){
-			avatar.color1 += 1
-		}else{
-			avatar.color1 = 0
-		}
-        break
+      for (var p in avatar_lib) {
+        if (p == part){
+          if(avatar[p].pattern + 1 < avatar_lib[p].pattern.length){
+              avatar[p].pattern += 1
+            }else{
+              avatar[p].pattern = 0
+            }
+        }
+      }
+      return avatar
 
-    case 'color2':
-		if(avatar.color2 + 1 < avatar_lib.colors.length){
-			avatar.color2 += 1
-		}else{
-			avatar.color2 = 0
-		}
-    	break
-	}
+    }
+  }else if (direction == 'previous'){
+    if (change == 'color') {
 
-	return avatar
-}
+      for (var p in avatar_lib) {
+        if (p == part){
+          if(avatar[p].colors == 0){
+        			avatar[p].colors = avatar_lib[p].colors.length - 1
+        		}else{
+        			avatar[p].colors -= 1
+        		}
+        }
+      }
+      return avatar
 
-function previousPart(avatar,part){
-	switch(part) {
-	case 'forms':
-		if(avatar.form == 0){
-			avatar.form = avatar_lib.forms.length -1
-		}else{
-			avatar.form -= 1
-		}
-		break	
+    }else if (change == 'pattern'){
 
-    case 'eyes':
-		if(avatar.eye  == 0){
-			avatar.eye = avatar_lib.eyes.length -1
-		}else{
-			avatar.eye -= 1
-		}
-        break
+      for (var p in avatar_lib) {
+        if (p == part){
+          if(avatar[p].pattern == 0){
+        			avatar[p].pattern = avatar_lib[p].pattern.length - 1
+        		}else{
+        			avatar[p].pattern -= 1
+        		}
+        }
+      }
+      return avatar
 
-    case 'mouths':
-		if(avatar.mouth  == 0){
-			avatar.mouth = avatar_lib.mouths.length -1
-		}else{
-			avatar.mouth -= 1
-		}
-        break
-
-    case 'color1':
-		if(avatar.color1  == 0){
-			avatar.color1 = avatar_lib.colors.length -1
-		}else{
-			avatar.color1 -= 1
-		}
-        break
-
-    case 'color2':
-		if(avatar.color2  == 0){
-			avatar.color2 = avatar_lib.colors.length -1
-		}else{
-			avatar.color2 -= 1
-		}
-    	break
-	} 
-	return avatar
+    }
+  }
+	return {"error": true, "msg": "Something goes wrong" }
 }
 
 function parse_avatar(avatar){
@@ -142,12 +102,38 @@ function avatar_to_string(avatar){
     return avatar_parsed
 }
 
-function is_unvalid_avatar(avatar){
-    if(avatar.form == undefined || avatar.eye == undefined ||avatar.mouth == undefined || avatar.color1 == undefined || avatar.color2 == undefined) return true
+function is_valid_avatar(avatar){
+			for (var part in avatar_lib) {
+				if(avatar[part] != undefined){
+					if(avatar[part].pattern == undefined || avatar[part].colors == undefined) return false
+				}else {
+					return false
+				}
+			}
+			return true
 }
 
-function is_unvalid_part(part){
-	if(part != 'forms' && part != 'eyes' && part != 'mouths' && part != 'color1' && part != 'color2' ) return true
+function is_valid_part(part){
+	for (var p in avatar_lib) {
+		if(part == p) return true
+	}
+  return false
+}
+
+function is_valid_direction(direction){
+	if(direction == "next" || direction == "previous"){
+		return true
+	}else {
+		return false
+	}
+}
+
+function is_valid_change(change){
+	if(change == "color" || change == "pattern"){
+		return true
+	}else {
+		return false
+	}
 }
 
 module.exports = {
@@ -158,7 +144,7 @@ module.exports = {
 
     stringify_avatar: function(avatar_json){
 
-    	if(is_unvalid_avatar(avatar_json)) return {'error': true, 'msg':'unvalid avatar'}
+    	if(!is_valid_avatar(avatar_json)) return {'error': true, 'msg':'unvalid avatar'}
 
     	return avatar_to_string(avatar_json)
     },
@@ -166,7 +152,7 @@ module.exports = {
     render_svg: function(avatar){
     	avatar_parsed = parse_avatar(avatar)
 
-    	if(is_unvalid_avatar(avatar_parsed)) return {'error': true, 'msg':'unvalid avatar'}
+    	if(!is_valid_avatar(avatar_parsed)) return {'error': true, 'msg':'unvalid avatar'}
 
     	return generate_avatar(avatar_parsed)
     },
@@ -179,39 +165,91 @@ module.exports = {
         return generate_avatar(random())
     },
 
-    next_part_avatar: function(avatar,part) {
-    	avatar_parsed = parse_avatar(avatar)
+    modify_avatar: function(avatar,part,change,direction) {
+      avatar_parsed = parse_avatar(avatar)
 
-    	if(is_unvalid_avatar(avatar_parsed)) return {'error': true, 'msg':'unvalid avatar'}
-    	if(is_unvalid_part(part)) return {'error': true, 'msg':'unvalid part'}
-        
-        return nextPart(avatar_parsed,part)
-    },
-    next_part_svg: function(avatar,part) {
-    	avatar_parsed = parse_avatar(avatar)
-    	
-    	if(is_unvalid_avatar(avatar_parsed)) return {'error': true, 'msg':'unvalid avatar'}
-    	if(is_unvalid_part(part)) return {'error': true, 'msg':'unvalid part'}
+			if(!is_valid_change(change)) return {'error': true, 'msg':'unvalid argument, for "color" or "pattern" '}
+			if(!is_valid_direction(direction)) return {'error': true, 'msg':'unvalid argument, for direction ("next" or "previous") '}
+			if(!is_valid_part(part)) return {'error': true, 'msg':'unvalid part'}
+      if(!is_valid_avatar(avatar_parsed)) return {'error': true, 'msg':'unvalid avatar'}
 
-        return generate_avatar(nextPart(avatar_parsed,part))
+      return change_avatar(avatar_parsed,part,change,direction)
     },
 
-    previous_part_avatar: function(avatar,part) {
-    	avatar_parsed = parse_avatar(avatar)
-    	
-    	if(is_unvalid_avatar(avatar_parsed)) return {'error': true, 'msg':'unvalid avatar'}
-    	if(is_unvalid_part(part)) return {'error': true, 'msg':'unvalid part'}
+		modify_avatar_svg: function(avatar,part,color,direction) {
+      avatar_parsed = parse_avatar(avatar)
 
-        return previousPart(avatar_parsed,part)
+			if(!is_valid_part(part)) return {'error': true, 'msg':'unvalid part'}
+      if(!is_valid_avatar(avatar_parsed)) return {'error': true, 'msg':'unvalid avatar'}
+
+        return generate_avatar(change_avatar(avatar_parsed,part,color,direction))
     },
-    previous_part_svg: function(avatar,part) {
-    	avatar_parsed = parse_avatar(avatar)
-    	
-    	if(is_unvalid_avatar(avatar_parsed)) return {'error': true, 'msg':'unvalid avatar'}
-    	if(is_unvalid_part(part)) return {'error': true, 'msg':'unvalid part'}
 
-        return generate_avatar(previousPart(avatar_parsed,part))
+    next_pattern_avatar: function(avatar,part) {
+    	avatar_parsed = parse_avatar(avatar)
+
+			if(!is_valid_part(part)) return {'error': true, 'msg':'unvalid part'}
+    	if(!is_valid_avatar(avatar_parsed)) return {'error': true, 'msg':'unvalid avatar'}
+
+        return change_avatar(avatar_parsed,part,'pattern','next')
+    },
+    next_pattern_svg: function(avatar,part) {
+    	avatar_parsed = parse_avatar(avatar)
+
+			if(!is_valid_part(part)) return {'error': true, 'msg':'unvalid part'}
+    	if(!is_valid_avatar(avatar_parsed)) return {'error': true, 'msg':'unvalid avatar'}
+
+      return generate_avatar(change_avatar(avatar_parsed,part,'pattern','next'))
+    },
+    next_color_avatar: function(avatar,part) {
+    	avatar_parsed = parse_avatar(avatar)
+
+			if(!is_valid_part(part)) return {'error': true, 'msg':'unvalid part'}
+    	if(!is_valid_avatar(avatar_parsed)) return {'error': true, 'msg':'unvalid avatar'}
+
+        return change_avatar(avatar_parsed,part,'color','next')
+    },
+    next_color_svg: function(avatar,part) {
+    	avatar_parsed = parse_avatar(avatar)
+
+			if(!is_valid_part(part)) return {'error': true, 'msg':'unvalid part'}
+    	if(!is_valid_avatar(avatar_parsed)) return {'error': true, 'msg':'unvalid avatar'}
+
+      return generate_avatar(change_avatar(avatar_parsed,part,'color','next'))
+    },
+
+    previous_pattern_avatar: function(avatar,part) {
+    	avatar_parsed = parse_avatar(avatar)
+
+			if(!is_valid_part(part)) return {'error': true, 'msg':'unvalid part'}
+    	if(!is_valid_avatar(avatar_parsed)) return {'error': true, 'msg':'unvalid avatar'}
+
+        return change_avatar(avatar_parsed,part,'pattern','previous')
+    },
+    previous_pattern_svg: function(avatar,part) {
+    	avatar_parsed = parse_avatar(avatar)
+
+			if(!is_valid_part(part)) return {'error': true, 'msg':'unvalid part'}
+    	if(!is_valid_avatar(avatar_parsed)) return {'error': true, 'msg':'unvalid avatar'}
+
+        return generate_avatar(change_avatar(avatar_parsed,part,'pattern','previous'))
+    },
+
+    previous_color_avatar: function(avatar,part) {
+    	avatar_parsed = parse_avatar(avatar)
+
+			if(!is_valid_part(part)) return {'error': true, 'msg':'unvalid part'}
+    	if(!is_valid_avatar(avatar_parsed)) return {'error': true, 'msg':'unvalid avatar'}
+
+        return change_avatar(avatar_parsed,part,'color','previous')
+    },
+    previous_color_svg: function(avatar,part) {
+    	avatar_parsed = parse_avatar(avatar)
+
+			if(!is_valid_part(part)) return {'error': true, 'msg':'unvalid part'}
+    	if(!is_valid_avatar(avatar_parsed)) return {'error': true, 'msg':'unvalid avatar'}
+
+        return generate_avatar(change_avatar(avatar_parsed,part,'color','previous'))
     }
 
 }
-
