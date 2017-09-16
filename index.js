@@ -23,6 +23,7 @@ function random(){
     avatar_rand[part].pattern = Math.floor(Math.random()*avatar_lib[part].pattern.length)
     avatar_rand[part].colors = Math.floor(Math.random()*avatar_lib[part].colors.length)
   }
+	// avatar_rand.eye.colors = avatar_rand.mouth.colors
 	return avatar_rand
 }
 
